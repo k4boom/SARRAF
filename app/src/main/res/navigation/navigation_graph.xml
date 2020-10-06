@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/listFragment">
+
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.musazenbilci.rightdenemeforsarraf.ListFragment"
+        android:label="fragment_list"
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_listFragment_to_createListFragment"
+            app:destination="@id/createListFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_showDataFragment"
+            app:destination="@id/showDataFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addDataFragment"
+        android:name="com.musazenbilci.rightdenemeforsarraf.AddDataFragment"
+        android:label="fragment_add_data"
+        tools:layout="@layout/fragment_add_data"
+        app:startDestination="@id/action_addDataFragment_to_listFragment">
+        <action
+            android:id="@+id/action_addDataFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_addDataFragment_to_showDataFragment"
+            app:destination="@id/showDataFragment" />
+        <argument
+            android:name="clickedListNameForaddData"
+            app:argType="string"
+             />
+        <argument
+            android:name="fromWhere"
+            app:argType="integer"
+            />
+        <argument
+            android:name="idOfTheClickedName"
+            app:argType="integer"
+             />
+    </fragment>
+    <fragment
+        android:id="@+id/createListFragment"
+        android:name="com.musazenbilci.rightdenemeforsarraf.CreateListFragment"
+        android:label="fragment_create_list"
+        tools:layout="@layout/fragment_create_list" >
+        <action
+            android:id="@+id/action_createListFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/showDataFragment"
+        android:name="com.musazenbilci.rightdenemeforsarraf.ShowDataFragment"
+        android:label="fragment_show_data"
+        tools:layout="@layout/fragment_show_data" >
+        <action
+            android:id="@+id/action_showDataFragment_to_addDataFragment"
+            app:destination="@id/addDataFragment" />
+        <action
+            android:id="@+id/action_showDataFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+        <argument
+            android:name="clickedListName"
+            app:argType="string"
+            />
+    </fragment>
+</navigation>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddDataFragment">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="297dp"
+        android:layout_height="153dp"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/image_selection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="370dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/saveTheCharButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.254">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="416dp"
+            android:layout_height="379dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/saveTheCharButton"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <EditText
+                android:id="@+id/nameOfTheCharacter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:hint="İsim"
+                android:inputType="textMultiLine" />
+
+            <EditText
+                android:id="@+id/nickNameofTheCharacter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:hint="Lakap"
+                android:inputType="textMultiLine" />
+
+            <EditText
+                android:id="@+id/defW1WordOfTheCharacter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:text="Tek kelimeyle özetlemek istersek..."
+                android:inputType="textMultiLine" />
+            <EditText
+                android:id="@+id/fatalityOfTheCharacter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:hint="Fatalitysi/Öldürücü Yeteneği"
+                android:inputType="textMultiLine" />
+
+            <EditText
+                android:id="@+id/friendshipOfTheCharacter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="Arkadaşlığı/Kardeşliği"
+                android:inputType="textMultiLine" />
+            <EditText
+                android:id="@+id/relationshipOfTheCharacter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="İlişkileri/Eşliği/Sevgililiği"
+                android:inputType="textMultiLine" />
+            <EditText
+                android:id="@+id/intelligenceOfTheCharacter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="Zeka Seviyesi"
+                android:inputType="textMultiLine" />
+            <EditText
+                android:id="@+id/fearsOfTheCharacter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="En büyük korkuları"
+                android:inputType="textMultiLine" />
+            <EditText
+                android:id="@+id/secretOfTheCharacter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:text="Kimse bilmez ama zamanında..."
+                android:inputType="textMultiLine" />
+            <EditText
+                android:id="@+id/goodGuyButOfTheCharacter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:text="İyi çocuk ama..."
+                android:inputType="textMultiLine" />
+            <EditText
+                android:id="@+id/socialLifeOfTheCharacter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="Sosyallik/Asosyallik"
+                android:inputType="textMultiLine" />
+            <EditText
+                android:id="@+id/obsessionOfTheCharacter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="Takıntısı"
+                android:inputType="textMultiLine" />
+            <EditText
+                android:id="@+id/extraOfTheCharacter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:text="Ek olarak eklemek isterim ki..."
+                android:inputType="textMultiLine" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/saveTheCharButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="KAYDET"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
