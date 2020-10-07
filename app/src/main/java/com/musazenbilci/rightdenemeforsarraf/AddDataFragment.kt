@@ -17,6 +17,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_add_data.*
 import kotlinx.android.synthetic.main.fragment_show_data.view.*
 import java.io.ByteArrayOutputStream
@@ -32,7 +33,7 @@ class AddDataFragment : Fragment() {
     var bitmapForTheImage: Bitmap?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        addElementToViewList()
+
 
         //println(AddDataFragmentArgs.fromBundle(requireArguments()).fromWhere)
 
@@ -87,6 +88,10 @@ class AddDataFragment : Fragment() {
                             nameOfTheCharacter.setText(cursor.getString(nameIndex))
                             nickNameofTheCharacter.setText(cursor.getString(nicknameIndex))
                             defW1WordOfTheCharacter.setText(cursor.getString(defW1WordIndex))
+                            //I VE LOST MY WILLING CUZ OF SOMETHING WENT WRONG THAT I EXPLAINED AT DOWN A FEW LINES OF CODE
+                            if(cursor.getString(fatalityIndex)==""){
+                                fatalityOfTheCharacter.visibility=View.GONE
+                            }
                             fatalityOfTheCharacter.setText(cursor.getString(fatalityIndex))
                             friendshipOfTheCharacter.setText(cursor.getString(friendshipIndex))
                             relationshipOfTheCharacter.setText(cursor.getString(relationshipIndex))
@@ -108,6 +113,18 @@ class AddDataFragment : Fragment() {
                 }
             }
         }
+        //I VE TRIED TO PUT ALL THE TEXTVIEWS INTO A LIST AND DO THE NULLCHECK ALL TOGETHER BUT IT DIDNOT WORKED AND I DIDNOT UNDERSTAND WHY
+//        addElementToViewList()
+//        for(view in ViewList){
+//            if(view.textView.text==""){
+//                view.visibility=View.GONE
+//            }else{
+//
+//            }
+//        }
+
+
+
         super.onViewCreated(view, savedInstanceState)
     }
     fun saveInput(view: View){
@@ -165,7 +182,6 @@ class AddDataFragment : Fragment() {
                             //println(cursor.getString(index))
                         }
                     }
-
 
 
            }catch (e:Exception){
