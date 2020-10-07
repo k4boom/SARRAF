@@ -26,7 +26,7 @@ import java.util.jar.Manifest
 
 
 class AddDataFragment : Fragment() {
-    //SOME BABY STEPS HERE
+    //INITIALIZED THE BITMAP AND URI VARIABLES TO REACH THEM IN ANY SCOPE
 
     var ViewList=ArrayList<View>()
     var uriForTheImage: Uri?=null
@@ -49,25 +49,33 @@ class AddDataFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         saveTheCharButton.setOnClickListener {
+            //SAVE THE USER INPUTS TO LOCAL DATABASES
             saveInput(it)
         }
         imageView.setOnClickListener {
+            //SELECT AN IMAGE FROM THE EXTERNAL STORAGE
             selectImage(it)
         }
         arguments?.let {
+            //TAKE THE DATABASE NAME AS AN ARGUMENT
             val sheetName=AddDataFragmentArgs.fromBundle(it).clickedListNameForaddData
             if (AddDataFragmentArgs.fromBundle(it).fromWhere==0){
+                //0 -> IF YOU COME FROM THE ADD NEW CHARACTER BUTTON
                 val gorselSecmeArkaPlan= BitmapFactory.decodeResource(context?.resources,R.drawable.image_selection)
                 imageView.setImageBitmap(gorselSecmeArkaPlan)
 
              }
              else{
+                //1->IF YOU COME FROM ANY ITEM IN THE RECYCLERVIEW
                 val SelectedId=AddDataFragmentArgs.fromBundle(it).İdOfTheClickedName
+                //SELECTED ID INDICATES WHICH ITEM IN THE RECYCLERVIEW IS CLICKED
                 println(SelectedId)
                 context?.let {
                     try {
+                        //DATABASE OF DIFFERENT SHEETS OF CHARACTER LISTS
                         val database=it.openOrCreateDatabase("ListContent",Context.MODE_PRIVATE,null)
                         println(sheetName)
+                        //USE THE SELECTED ID TO GET DATA FROM DATABASE
                         val cursor=database.rawQuery("SELECT * FROM $sheetName WHERE id= ? ",
                             arrayOf(SelectedId.toString()))
                         val nameIndex=cursor.getColumnIndex("name")
@@ -88,7 +96,8 @@ class AddDataFragment : Fragment() {
                             nameOfTheCharacter.setText(cursor.getString(nameIndex))
                             nickNameofTheCharacter.setText(cursor.getString(nicknameIndex))
                             defW1WordOfTheCharacter.setText(cursor.getString(defW1WordIndex))
-                            //I VE LOST MY WILLING CUZ OF SOMETHING WENT WRONG THAT I EXPLAINED AT DOWN A FEW LINES OF CODE
+                            //I HAVE TRIED TO DO NULL CHECK WITH A LOOP BUT I COULDNOT UNDERSTAND WHY IT DIDNOT WORK
+                            //I HOPE D FIND A WAY TO DO THIS
                             if(cursor.getString(fatalityIndex)==""){
                                 fatalityOfTheCharacter.visibility=View.GONE
                             }
@@ -128,6 +137,7 @@ class AddDataFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
     fun saveInput(view: View){
+        //A FEW UGLY LINES
         var dbName:String?=null
         var personName=nameOfTheCharacter.text.toString()
         val personNickname=nickNameofTheCharacter.text.toString()
@@ -142,8 +152,10 @@ class AddDataFragment : Fragment() {
         val personSocialLife=socialLifeOfTheCharacter.text.toString()
         val personObsession=obsessionOfTheCharacter.text.toString()
         val personExtra=extraOfTheCharacter.text.toString()
-        if(bitmapForTheImage!=null){
+        if(bitmapForTheImage!=null){//IF THE SELECTED IMAGE IS NOT NULL
+            //RESIZE THE BITMAP IN A STANDART WAY TO DON'T EXCEED 1MB
             val smallerBitmap=createSmallBitmap(bitmapForTheImage!!,300)
+            //CONVERT BITMAPS TO BYTEARRAYS TO STORE IN DATABASE
             val outputStream= ByteArrayOutputStream()
             smallerBitmap.compress(Bitmap.CompressFormat.PNG,50,outputStream)
             val byteDizisi=outputStream.toByteArray()
@@ -160,7 +172,7 @@ class AddDataFragment : Fragment() {
                                 "obsession VARCHAR,extra VARCHAR,gorsel BLOB)")
                         val sqlString=" INSERT INTO $dbName (name,nickname,defW1word,fatality,friendship,relationship,intelligence,fears,secret,goodGuyBut,socialLife,obsession,extra,gorsel) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) "
                         val statement=database.compileStatement(sqlString)
-//                        //I VE THOUGHT TO CREATE A LOOP OR FUN FOR IT BUT I REALIZED I HAD TO DO THAT WORK ANYWAY
+                        //I VE THOUGHT TO CREATE A LOOP OR FUN FOR IT BUT I REALIZED I HAD TO DO THAT WORK ANYWAY
                         statement.bindString(1,personName)
                         statement.bindString(2,personNickname)
                         statement.bindString(3,persondefW1Word)
@@ -176,11 +188,12 @@ class AddDataFragment : Fragment() {
                         statement.bindString(13,personExtra)
                         statement.bindBlob(14,byteDizisi)
                         statement.execute()
-                        val cursor=database.rawQuery("SELECT * FROM $dbName",null)
-                        val index=cursor.getColumnIndex("name")
-                        while (cursor.moveToNext()){
-                            //println(cursor.getString(index))
-                        }
+                        //WHERE I CHECK THE VALUES AFTER SAVING THEM INTO DB
+//                        val cursor=database.rawQuery("SELECT * FROM $dbName",null)
+ //                       val index=cursor.getColumnIndex("name")
+//                        while (cursor.moveToNext()){
+
+ //                       }
                     }
 
 
@@ -188,6 +201,7 @@ class AddDataFragment : Fragment() {
                e.printStackTrace()
             }
             arguments?.let {
+                //GET BACK TO THE CHARACTER LIST PAGE AFTER SAVING
                 val action=AddDataFragmentDirections.actionAddDataFragmentToShowDataFragment(
                     AddDataFragmentArgs.fromBundle(it).clickedListNameForaddData)
                 Navigation.findNavController(view).navigate(action)
@@ -239,10 +253,10 @@ class AddDataFragment : Fragment() {
                 }
 
         }
-        //else{
+
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        //}
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -252,10 +266,12 @@ class AddDataFragment : Fragment() {
                 context?.let {
                     if(uriForTheImage!=null){
                         if (Build.VERSION.SDK_INT>=28){
+                            //THIS PART IS ABLE TO WORK WITH ANDROID DEVICES ONLY HAVE API HIGHER THAN 28
                             val source=  ImageDecoder.createSource(it.contentResolver,uriForTheImage!!)
                             bitmapForTheImage= ImageDecoder.decodeBitmap(source)
                             imageView.setImageBitmap(bitmapForTheImage)
                         }else{
+                            //AN OLD WAY
                             bitmapForTheImage=MediaStore.Images.Media.getBitmap(it.contentResolver,uriForTheImage!!)
                             imageView.setImageBitmap(bitmapForTheImage)
                         }
@@ -270,6 +286,8 @@ class AddDataFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
     }
     fun createSmallBitmap(userBitmap: Bitmap,maximumSize:Int):Bitmap{
+        //IMAGE RESIZER FUNCTION
+        //SENSITIVE TO WHETHER THE IMAGE IS VERTICAL OR HORIZONTAL
         var width=userBitmap.width
         var height=userBitmap.height
         val bitmapProportion=width.toDouble()/height.toDouble()
